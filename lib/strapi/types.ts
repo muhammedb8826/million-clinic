@@ -33,11 +33,23 @@ export interface StrapiLocale {
   isDefault?: boolean;
 }
 
+export interface StrapiHeaderColors {
+  backgroundColor?: string | null;
+  textColor?: string | null;
+  borderColor?: string | null;
+  linkColor?: string | null;
+  linkHoverColor?: string | null;
+  activeLinkColor?: string | null;
+  buttonBackgroundColor?: string | null;
+  buttonTextColor?: string | null;
+}
+
 export interface StrapiTopHeader {
   id: number;
   socialIcon: StrapiSocialIcon[];
   cta?: StrapiTopHeaderCta[];
   languages?: StrapiLocale[];
+  colors?: StrapiHeaderColors | null;
 }
 
 /** Main header nav link (menu item or dropdown item) */

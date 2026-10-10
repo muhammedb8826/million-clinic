@@ -19,6 +19,7 @@ export type {
   StrapiGlobal,
   StrapiTopHeader,
   StrapiTopHeaderCta,
+  StrapiHeaderColors,
   StrapiHeader,
   StrapiFooter,
   StrapiFooterAbout,
