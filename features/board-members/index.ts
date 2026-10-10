@@ -1,0 +1,1 @@
+export { BoardMemberCard } from "./components";

@@ -1,0 +1,1 @@
+// Footer business logic / utilities

@@ -1,0 +1,27 @@
+name: Deploy Charity App
+
+on:
+  push:
+    branches:
+      - main # Change this if your default branch is 'master'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: 76.13.110.12
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /var/www/website
+            git pull origin main
+            # This rebuilds only what changed and restarts the container
+            docker compose up -d --build
+            # Optional: Clean up old unused images to save disk space
+            docker image prune -f
