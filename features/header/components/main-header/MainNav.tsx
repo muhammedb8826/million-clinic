@@ -9,6 +9,7 @@ import type { StrapiHeader, StrapiMenuItem, StrapiSubMenuItem, StrapiTopHeader }
 import { ThemeSwitcher } from "../top-header/ThemeSwitcher";
 import { LanguageSwitcher } from "../top-header/LanguageSwitcher";
 import { TopHeaderCtaLink } from "../top-header/TopHeaderCtaLink";
+import { headerThemeStyle } from "../../utils/headerThemeStyle";
 
 /** Local fallback: dark mark for light UI, light mark for dark UI */
 const LOCAL_LOGO_DEFAULT = "/logo/side-logo-black.png";
@@ -135,10 +136,10 @@ export function MainNav({ header, topHeader, siteName }: MainNavProps) {
   const showLogo = showLightLogo || showDarkLogo;
 
   return (
-    <div className="flex w-full items-center justify-between gap-6">
+    <div className="flex w-full min-w-0 items-center justify-between gap-3">
       <Link
         href="/"
-        className="flex shrink-0 items-center gap-2 text-lg font-semibold text-foreground transition hover:text-primary"
+        className="flex min-w-0 max-w-[calc(100%-3.25rem)] shrink items-center gap-2 text-lg font-semibold text-[color:var(--mh-text,var(--foreground))] transition hover:text-[color:var(--mh-link-hover,var(--primary))] md:max-w-none md:shrink-0"
         aria-label={siteName}
       >
         {showLogo ? (
@@ -149,7 +150,7 @@ export function MainNav({ header, topHeader, siteName }: MainNavProps) {
                 alt={logoAlt}
                 width={logo?.width ?? darkLogo?.width ?? 160}
                 height={logo?.height ?? darkLogo?.height ?? 80}
-                className="h-12 w-auto object-contain dark:hidden"
+                className="h-10 w-auto max-w-full object-contain object-left sm:h-12 md:h-16 md:max-w-none dark:hidden"
                 priority
                 onError={() => {
                   if (logoSrc && lightLogoSrc === logoSrc) setCmsLogoFailed(true);
@@ -163,7 +164,7 @@ export function MainNav({ header, topHeader, siteName }: MainNavProps) {
                 alt={logoAlt}
                 width={darkLogo?.width ?? logo?.width ?? 160}
                 height={darkLogo?.height ?? logo?.height ?? 80}
-                className={`h-12 w-auto object-contain ${showLightLogo ? "hidden dark:block" : ""}`}
+                className={`h-10 w-auto max-w-full object-contain object-left sm:h-12 md:h-16 md:max-w-none ${showLightLogo ? "hidden dark:block" : ""}`}
                 priority
                 onError={() => {
                   if (darkLogoSrc && darkModeLogoSrc === darkLogoSrc) setCmsDarkLogoFailed(true);
@@ -173,7 +174,7 @@ export function MainNav({ header, topHeader, siteName }: MainNavProps) {
             )}
           </>
         ) : (
-          siteName
+          <span className="truncate">{siteName}</span>
         )}
       </Link>
 
@@ -188,7 +189,7 @@ export function MainNav({ header, topHeader, siteName }: MainNavProps) {
               <NavLink
                 key={item.id}
                 item={item}
-                className="rounded-md px-3 py-2 text-sm font-medium text-foreground transition hover:bg-accent hover:text-accent-foreground aria-[current=page]:text-primary"
+                className="rounded-md px-3 py-2 text-sm font-medium text-[color:var(--mh-link,var(--foreground))] transition hover:bg-black/5 hover:text-[color:var(--mh-link-hover,var(--primary))] aria-[current=page]:text-[color:var(--mh-link-active,var(--primary))] dark:hover:bg-white/10"
               />
             ))}
             {subMenu.map((sub) => (
@@ -200,7 +201,7 @@ export function MainNav({ header, topHeader, siteName }: MainNavProps) {
               >
                 <button
                   type="button"
-                  className="flex items-center gap-0.5 rounded-md px-3 py-2 text-sm font-medium text-foreground transition hover:bg-accent hover:text-accent-foreground"
+                  className="flex items-center gap-0.5 rounded-md px-3 py-2 text-sm font-medium text-[color:var(--mh-link,var(--foreground))] transition hover:bg-black/5 hover:text-[color:var(--mh-link-hover,var(--primary))] dark:hover:bg-white/10"
                   aria-expanded={openDropdownId === sub.id}
                   aria-haspopup="true"
                 >
@@ -220,17 +221,17 @@ export function MainNav({ header, topHeader, siteName }: MainNavProps) {
                   <NavLink
                     key={btn.id}
                     item={btn}
-                    className="inline-flex rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition hover:opacity-90"
+                    className="inline-flex rounded-md bg-[var(--mh-btn-bg,var(--primary))] px-4 py-2 text-sm font-medium text-[color:var(--mh-btn-text,var(--primary-foreground))] transition hover:opacity-90"
                   />
                 ))}
               </div>
             )}
           </nav>
 
-          {/* Mobile menu button */}
+          {/* Mobile menu button — always keep visible; never shrink off-screen */}
           <button
             type="button"
-            className="flex h-10 w-10 items-center justify-center rounded-md border border-border md:hidden"
+            className="relative z-50 ml-auto flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-[color:var(--mh-border,var(--border))] bg-[var(--mh-bg,var(--background))] text-[color:var(--mh-text,var(--foreground))] md:hidden"
             aria-expanded={mobileOpen}
             aria-label="Toggle menu"
             onClick={(e) => {
@@ -261,7 +262,7 @@ export function MainNav({ header, topHeader, siteName }: MainNavProps) {
       )}
       {mobileOpen && hasNav && (
         <nav
-          className="fixed left-0 right-0 top-16 z-40 flex max-h-[calc(100vh-4rem)] flex-col overflow-auto border-t border-border bg-background md:hidden"
+          className="fixed left-0 right-0 top-16 z-40 flex max-h-[calc(100vh-4rem)] flex-col overflow-auto border-t border-[color:var(--mh-border,var(--border))] bg-[var(--mh-bg,var(--background))] text-[color:var(--mh-text,var(--foreground))] md:hidden"
           aria-label="Main navigation"
         >
           <div className="flex-1 space-y-1 px-4 py-4">
@@ -269,19 +270,19 @@ export function MainNav({ header, topHeader, siteName }: MainNavProps) {
               <NavLink
                 key={item.id}
                 item={item}
-                className="block rounded-md px-3 py-2 text-foreground hover:bg-accent hover:text-accent-foreground"
+                className="block rounded-md px-3 py-2 text-[color:var(--mh-link,var(--foreground))] hover:bg-black/5 hover:text-[color:var(--mh-link-hover,var(--primary))] aria-[current=page]:text-[color:var(--mh-link-active,var(--primary))] dark:hover:bg-white/10"
               />
             ))}
             {subMenu.map((sub) => (
               <div key={sub.id} className="py-1">
-                <span className="block px-3 py-2 text-sm font-medium text-muted-foreground">
+                <span className="block px-3 py-2 text-sm font-medium opacity-70">
                   {sub.title}
                 </span>
                 {sub.dropDown?.map((item) => (
                   <NavLink
                     key={item.id}
                     item={item}
-                    className="block rounded-md py-2 pl-6 pr-3 text-foreground hover:bg-accent hover:text-accent-foreground"
+                    className="block rounded-md py-2 pl-6 pr-3 text-[color:var(--mh-link,var(--foreground))] hover:bg-black/5 hover:text-[color:var(--mh-link-hover,var(--primary))] dark:hover:bg-white/10"
                   />
                 ))}
               </div>
@@ -290,13 +291,16 @@ export function MainNav({ header, topHeader, siteName }: MainNavProps) {
               <div key={btn.id} className="pt-2">
                 <NavLink
                   item={btn}
-                  className="inline-flex rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+                  className="inline-flex rounded-md bg-[var(--mh-btn-bg,var(--primary))] px-4 py-2 text-sm font-medium text-[color:var(--mh-btn-text,var(--primary-foreground))]"
                 />
               </div>
             ))}
           </div>
           {/* Mobile: top header content (CTA, theme, language, social) */}
-          <div className="mt-auto border-t border-border bg-muted/50 px-4 py-4">
+          <div
+            className="mt-auto border-t border-[color:var(--th-border,var(--border))] bg-[var(--th-bg,color-mix(in_oklab,var(--muted)_50%,transparent))] px-4 py-4 text-[color:var(--th-text,var(--muted-foreground))] [&_a]:text-[color:var(--th-link,currentColor)] [&_a:hover]:text-[color:var(--th-link-hover,var(--primary))]"
+            style={headerThemeStyle(topHeader?.colors, "th")}
+          >
             {(topHeader?.cta?.length ?? 0) > 0 && (
               <div className="mb-3 flex flex-col gap-2">
                 {topHeader?.cta?.map((item) => (
@@ -312,7 +316,7 @@ export function MainNav({ header, topHeader, siteName }: MainNavProps) {
                     href={ensureUrl(item.url)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-foreground transition hover:text-primary"
+                    className="transition"
                     aria-label={item.icon?.iconName ?? "Social link"}
                   >
                     <svg
