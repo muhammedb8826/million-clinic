@@ -3,9 +3,9 @@
  * `shareImagePath` must match a file under `/public`.
  */
 export const LOCAL_FALLBACK_SEO = {
-  metaTitle: "Mako Foundation",
+  metaTitle: "Million Medium Clinic | Supporting Communities",
   metaDescription:
-    "Supporting communities through education, healthcare, and charitable programs.",
-  /** Served from `public/mako-foundation.png` */
-  shareImagePath: "/mako-foundation.png",
+    "Supporting communities through healthcare. We provide accessible and affordable healthcare services to underserved populations.",
+  /** Served from `public/million-clinic.jpg` */
+  shareImagePath: "/million-clinic.jpg",
 } as const;
