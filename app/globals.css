@@ -5,43 +5,43 @@
 /* Class-based dark mode for next-themes (manual toggle). Default is light. */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Brand: primary #9a4f02 (warm brown), secondary #094a02 (green), tertiary #912102 (burgundy) */
+/* Brand: primary deep teal (from logo M), secondary soft gold (caduceus/wings/cross), tertiary darker teal */
 :root {
   --muted: oklch(0.97 0 0);
   --muted-background: #f8fafc;
   --border: oklch(0.922 0 0);
-  --ring: #9a4f02;
+  --ring: #0d4f5b;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: #9a4f02;
+  --primary: #0d4f5b;          /* deep teal from the M */
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: #094a02;
-  --secondary-foreground: oklch(0.985 0 0);
-  --tertiary: #912102;
+  --secondary: #c9a227;        /* soft gold from caduceus / wings / cross */
+  --secondary-foreground: oklch(0.145 0 0);
+  --tertiary: #083a44;         /* darker teal for accents */
   --tertiary-foreground: oklch(0.985 0 0);
-  --muted-foreground: oklch(0.456 0.02 65);
-  --accent: oklch(0.97 0.02 65);
-  --accent-foreground: #9a4f02;
-  --destructive: #912102;
+  --muted-foreground: oklch(0.456 0.02 210);
+  --accent: oklch(0.97 0.02 85);
+  --accent-foreground: #0d4f5b;
+  --destructive: #b82d08;
   --input: oklch(0.922 0 0);
-  --chart-1: #9a4f02;
-  --chart-2: #094a02;
-  --chart-3: #912102;
-  --chart-4: oklch(0.6 0.1 65);
-  --chart-5: oklch(0.5 0.12 25);
+  --chart-1: #0d4f5b;
+  --chart-2: #c9a227;
+  --chart-3: #083a44;
+  --chart-4: oklch(0.65 0.08 85);
+  --chart-5: oklch(0.55 0.1 210);
   --radius: 0.625rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: #9a4f02;
+  --sidebar-primary: #0d4f5b;
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0.02 65);
+  --sidebar-accent: oklch(0.97 0.02 85);
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: #9a4f02;
+  --sidebar-ring: #0d4f5b;
 }
 
 .dark {
@@ -50,35 +50,35 @@
   --muted: oklch(0.269 0 0);
   --muted-background: #1e293b;
   --border: oklch(1 0 0 / 10%);
-  --ring: #c26b1a;
+  --ring: #1a7a8a;
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: #c26b1a;
+  --primary: #1a7a8a;          /* lighter teal for dark mode */
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: #0d6b03;
-  --secondary-foreground: oklch(0.985 0 0);
-  --tertiary: #b82d08;
+  --secondary: #d4b84a;        /* brighter gold for dark mode */
+  --secondary-foreground: oklch(0.145 0 0);
+  --tertiary: #0d4f5b;
   --tertiary-foreground: oklch(0.985 0 0);
   --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0.02 65);
-  --accent-foreground: oklch(0.95 0.05 65);
+  --accent: oklch(0.269 0.02 85);
+  --accent-foreground: oklch(0.95 0.05 85);
   --destructive: #b82d08;
   --input: oklch(1 0 0 / 15%);
-  --chart-1: #c26b1a;
-  --chart-2: #0d6b03;
-  --chart-3: #b82d08;
-  --chart-4: oklch(0.6 0.1 65);
-  --chart-5: oklch(0.55 0.15 25);
+  --chart-1: #1a7a8a;
+  --chart-2: #d4b84a;
+  --chart-3: #0d4f5b;
+  --chart-4: oklch(0.65 0.1 85);
+  --chart-5: oklch(0.55 0.12 210);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: #c26b1a;
+  --sidebar-primary: #1a7a8a;
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: #c26b1a;
+  --sidebar-ring: #1a7a8a;
 }
 
 @theme inline {
