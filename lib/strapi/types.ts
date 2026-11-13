@@ -667,6 +667,19 @@ export interface StrapiDonatePage {
   blocks?: StrapiDynamicBlock[];
 }
 
+/** Service page single type (same shape as About: title, banner, blocks, seo) */
+export interface StrapiServicePage {
+  id: number;
+  documentId: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  title?: string | null;
+  banner?: StrapiMedia | null;
+  seo?: StrapiDefaultSeo | null;
+  blocks?: StrapiDynamicBlock[];
+}
+
 /** About page single type */
 export interface StrapiAboutPage {
   id: number;

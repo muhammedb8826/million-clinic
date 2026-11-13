@@ -6,6 +6,7 @@ export { getHomePage } from "./homePage";
 export { getAboutPage } from "./aboutPage";
 export { getContactPage } from "./contactPage";
 export { getDonatePage } from "./donatePage";
+export { getServicePage } from "./servicePage";
 export { getPages, getPageBySlug } from "./pages";
 export { getProjects, getProjectBySlug } from "./projects";
 export { getPartners, getPartnerBySlug } from "./partners";
@@ -78,6 +79,7 @@ export type {
   StrapiAboutCard,
   StrapiContactPage,
   StrapiDonatePage,
+  StrapiServicePage,
   StrapiTabSectionBlock,
   StrapiTabItem,
   StrapiFeaturedCard,
