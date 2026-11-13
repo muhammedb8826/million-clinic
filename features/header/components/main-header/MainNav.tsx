@@ -150,7 +150,7 @@ export function MainNav({ header, topHeader, siteName }: MainNavProps) {
                 alt={logoAlt}
                 width={logo?.width ?? darkLogo?.width ?? 160}
                 height={logo?.height ?? darkLogo?.height ?? 80}
-                className="h-10 w-auto max-w-full object-contain object-left sm:h-12 md:h-16 md:max-w-none dark:hidden"
+                className="h-10 w-auto max-w-full object-contain object-left sm:h-12  md:max-w-none dark:hidden"
                 priority
                 onError={() => {
                   if (logoSrc && lightLogoSrc === logoSrc) setCmsLogoFailed(true);
@@ -164,7 +164,7 @@ export function MainNav({ header, topHeader, siteName }: MainNavProps) {
                 alt={logoAlt}
                 width={darkLogo?.width ?? logo?.width ?? 160}
                 height={darkLogo?.height ?? logo?.height ?? 80}
-                className={`h-10 w-auto max-w-full object-contain object-left sm:h-12 md:h-16 md:max-w-none ${showLightLogo ? "hidden dark:block" : ""}`}
+                className={`h-10 w-auto max-w-full object-contain object-left sm:h-12 md:max-w-none ${showLightLogo ? "hidden dark:block" : ""}`}
                 priority
                 onError={() => {
                   if (darkLogoSrc && darkModeLogoSrc === darkLogoSrc) setCmsDarkLogoFailed(true);
