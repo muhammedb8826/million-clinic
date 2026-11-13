@@ -1,122 +1,229 @@
+
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-/* Class-based dark mode for next-themes (manual toggle). Default is light. */
+/* Class-based dark mode for next-themes */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Brand: primary deep teal (from logo M), secondary soft gold (caduceus/wings/cross), tertiary darker teal */
+/*
+ * MILLION INTERNAL MEDICINE SPECIALTY CLINIC
+ * Brand colors inspired by the original logo.
+ *
+ * Primary:   Navy Blue
+ * Secondary: Medical Teal
+ * Tertiary:  Deep Navy
+ */
+
 :root {
-  --muted: oklch(0.97 0 0);
+  /* Brand palette */
+  --brand-navy: #07346b;
+  --brand-navy-dark: #05264d;
+  --brand-teal: #59b4b0;
+  --brand-teal-dark: #318f90;
+  --brand-teal-light: #e8f6f5;
+  --brand-blue-light: #edf4fa;
+
+  /* Base */
+  --background: #ffffff;
+  --foreground: #10263f;
+
+  --card: #ffffff;
+  --card-foreground: #10263f;
+
+  --popover: #ffffff;
+  --popover-foreground: #10263f;
+
+  /* Primary: Logo Navy */
+  --primary: #07346b;
+  --primary-foreground: #ffffff;
+
+  /* Secondary: Logo Teal */
+  --secondary: #59b4b0;
+  --secondary-foreground: #062d38;
+
+  /* Tertiary: Deep Navy */
+  --tertiary: #05264d;
+  --tertiary-foreground: #ffffff;
+
+  /* Muted */
+  --muted: #f1f6fa;
   --muted-background: #f8fafc;
-  --border: oklch(0.922 0 0);
-  --ring: #0d4f5b;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: #0d4f5b;          /* deep teal from the M */
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: #c9a227;        /* soft gold from caduceus / wings / cross */
-  --secondary-foreground: oklch(0.145 0 0);
-  --tertiary: #083a44;         /* darker teal for accents */
-  --tertiary-foreground: oklch(0.985 0 0);
-  --muted-foreground: oklch(0.456 0.02 210);
-  --accent: oklch(0.97 0.02 85);
-  --accent-foreground: #0d4f5b;
-  --destructive: #b82d08;
-  --input: oklch(0.922 0 0);
-  --chart-1: #0d4f5b;
-  --chart-2: #c9a227;
-  --chart-3: #083a44;
-  --chart-4: oklch(0.65 0.08 85);
-  --chart-5: oklch(0.55 0.1 210);
+  --muted-foreground: #60748a;
+
+  /* Accent */
+  --accent: #e8f6f5;
+  --accent-foreground: #07346b;
+
+  /* Borders and inputs */
+  --border: #dce6ed;
+  --input: #dce6ed;
+  --ring: #318f90;
+
+  /* Destructive */
+  --destructive: #c0392b;
+
+  /* Charts */
+  --chart-1: #07346b;
+  --chart-2: #59b4b0;
+  --chart-3: #318f90;
+  --chart-4: #3978a8;
+  --chart-5: #8bcfca;
+
+  /* Radius */
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: #0d4f5b;
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0.02 85);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: #0d4f5b;
+
+  /* Sidebar */
+  --sidebar: #f8fbfd;
+  --sidebar-foreground: #10263f;
+
+  --sidebar-primary: #07346b;
+  --sidebar-primary-foreground: #ffffff;
+
+  --sidebar-accent: #e8f6f5;
+  --sidebar-accent-foreground: #07346b;
+
+  --sidebar-border: #dce6ed;
+  --sidebar-ring: #318f90;
 }
 
+/* Dark mode */
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-background: #1e293b;
-  --border: oklch(1 0 0 / 10%);
-  --ring: #1a7a8a;
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: #1a7a8a;          /* lighter teal for dark mode */
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: #d4b84a;        /* brighter gold for dark mode */
-  --secondary-foreground: oklch(0.145 0 0);
-  --tertiary: #0d4f5b;
-  --tertiary-foreground: oklch(0.985 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0.02 85);
-  --accent-foreground: oklch(0.95 0.05 85);
-  --destructive: #b82d08;
-  --input: oklch(1 0 0 / 15%);
-  --chart-1: #1a7a8a;
-  --chart-2: #d4b84a;
-  --chart-3: #0d4f5b;
-  --chart-4: oklch(0.65 0.1 85);
-  --chart-5: oklch(0.55 0.12 210);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: #1a7a8a;
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: #1a7a8a;
+  /* Brand palette */
+  --brand-navy: #568ed1;
+  --brand-navy-dark: #07346b;
+  --brand-teal: #70cbc5;
+  --brand-teal-dark: #59b4b0;
+  --brand-teal-light: #153b43;
+  --brand-blue-light: #172b43;
+
+  /* Base */
+  --background: #0b1728;
+  --foreground: #f0f6fc;
+
+  --card: #122238;
+  --card-foreground: #f0f6fc;
+
+  --popover: #122238;
+  --popover-foreground: #f0f6fc;
+
+  /* Primary: Brighter blue for dark mode */
+  --primary: #568ed1;
+  --primary-foreground: #071b32;
+
+  /* Secondary: Medical Teal */
+  --secondary: #70cbc5;
+  --secondary-foreground: #082b32;
+
+  /* Tertiary */
+  --tertiary: #204e78;
+  --tertiary-foreground: #ffffff;
+
+  /* Muted */
+  --muted: #1a2c43;
+  --muted-background: #14243a;
+  --muted-foreground: #a2b4c8;
+
+  /* Accent */
+  --accent: #153b43;
+  --accent-foreground: #b8eeea;
+
+  /* Borders and inputs */
+  --border: #2b4058;
+  --input: #2b4058;
+  --ring: #70cbc5;
+
+  /* Destructive */
+  --destructive: #ef7068;
+
+  /* Charts */
+  --chart-1: #568ed1;
+  --chart-2: #70cbc5;
+  --chart-3: #318f90;
+  --chart-4: #8bb8e9;
+  --chart-5: #a4e2dc;
+
+  /* Sidebar */
+  --sidebar: #101f33;
+  --sidebar-foreground: #f0f6fc;
+
+  --sidebar-primary: #568ed1;
+  --sidebar-primary-foreground: #071b32;
+
+  --sidebar-accent: #1b3548;
+  --sidebar-accent-foreground: #b8eeea;
+
+  --sidebar-border: #2b4058;
+  --sidebar-ring: #70cbc5;
 }
 
+/* Tailwind v4 theme tokens */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
+
+  --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
+
   --color-primary: var(--primary);
-  --color-tertiary-foreground: var(--tertiary-foreground);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
   --color-tertiary: var(--tertiary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
+  --color-tertiary-foreground: var(--tertiary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-background: var(--muted-background);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
   --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  /* Sidebar */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground:
+    var(--sidebar-primary-foreground);
+
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground:
+    var(--sidebar-accent-foreground);
+
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Charts */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Brand utilities */
+  --color-brand-navy: var(--brand-navy);
+  --color-brand-navy-dark: var(--brand-navy-dark);
+  --color-brand-teal: var(--brand-teal);
+  --color-brand-teal-dark: var(--brand-teal-dark);
+  --color-brand-teal-light: var(--brand-teal-light);
+  --color-brand-blue-light: var(--brand-blue-light);
+
+  /* Radius */
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -126,6 +233,7 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* Global styles */
 * {
   box-sizing: border-box;
 }
@@ -137,13 +245,14 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-family:
+    var(--font-geist-sans), system-ui, sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Focus visible for accessibility */
+/* Accessibility */
 :focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 2px;
@@ -153,19 +262,52 @@ body {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     @apply font-sans;
   }
 }
 
-/* Home partners logo strip — infinite horizontal scroll */
+/* Brand gradient */
+.brand-gradient {
+  background: linear-gradient(
+    135deg,
+    #07346b 0%,
+    #17638c 48%,
+    #59b4b0 100%
+  );
+}
+
+.brand-gradient-text {
+  background: linear-gradient(
+    135deg,
+    #07346b 0%,
+    #318f90 60%,
+    #59b4b0 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.dark .brand-gradient-text {
+  background-image: linear-gradient(
+    135deg,
+    #8bb8e9 0%,
+    #70cbc5 100%
+  );
+}
+
+/* Partners marquee */
 @keyframes partners-marquee {
   from {
     transform: translateX(0);
   }
+
   to {
     transform: translateX(-50%);
   }
@@ -185,6 +327,10 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   .partners-marquee-track {
     animation: none;
   }
