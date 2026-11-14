@@ -1,1 +1,9 @@
-export { Slider, FeaturedArticles, FeaturedProjects, FeaturedEvents, FeaturedPartners, MissionSection, VideoSection, ContactSection } from "./components";
+export {
+  Slider,
+  FeaturedArticles,
+  FeaturedProjects,
+  FeaturedEvents,
+  FeaturedPartners,
+  FeaturedTeams,
+  ContactSection,
+} from "./components";

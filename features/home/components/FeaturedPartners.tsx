@@ -4,6 +4,8 @@ import { PartnerCard } from "@/features/partners";
 
 interface FeaturedPartnersProps {
   partners: StrapiPartner[];
+  title?: string | null;
+  subTitle?: string | null;
 }
 
 /** Build two identical halves for seamless CSS translateX(-50%) marquee. */
@@ -17,25 +19,28 @@ function marqueeSequence(partners: StrapiPartner[]): StrapiPartner[] {
   return [...half, ...half];
 }
 
-export function FeaturedPartners({ partners }: FeaturedPartnersProps) {
+export function FeaturedPartners({ partners, title, subTitle }: FeaturedPartnersProps) {
   if (partners.length === 0) return null;
 
   const track = marqueeSequence(partners);
+  const heading = title?.trim() || null;
+  const description = subTitle?.trim() || null;
 
   return (
     <section className="bg-muted/30 py-16 sm:py-20">
       <div className="mx-auto max-w-6xl px-4">
-        <div className="mb-10 flex flex-col gap-3 text-center">
-          <span className="text-sm font-semibold uppercase tracking-widest text-primary">
-            Partners
-          </span>
-          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Trusted by organizations we work with
-          </h2>
-          <p className="mx-auto max-w-2xl text-muted-foreground">
-            We collaborate with local and international partners to maximize impact.
-          </p>
-        </div>
+        {(heading || description) && (
+          <div className="mb-10 flex flex-col gap-3 text-center">
+            {heading && (
+              <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+                {heading}
+              </h2>
+            )}
+            {description && (
+              <p className="mx-auto max-w-2xl text-muted-foreground">{description}</p>
+            )}
+          </div>
+        )}
 
         <div className="relative overflow-hidden py-2">
           <div

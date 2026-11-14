@@ -235,7 +235,8 @@ export interface StrapiSlide {
   heading: string | null;
   subHeading: string | null;
   media: StrapiSlideMedia | null;
-  link: StrapiSlideLink | null;
+  /** Repeatable `components.link` CTAs */
+  link?: StrapiSlideLink[] | null;
 }
 
 /** Blocks component: components.slides */
@@ -354,49 +355,14 @@ export interface StrapiContactPage {
   } | null;
 }
 
-/** Home page about section (embedded in single type) */
-export interface StrapiHomeAboutSection {
-  id: number;
-  title: string;
-  subTitle?: string | null;
-  description?: string | null;
-  image?: StrapiMedia | null;
-}
-
-/** Home featured video (collection relation on api/home) */
-export type StrapiHomeVideoType = "URL" | "FILE";
-
-export interface StrapiHomeVideo {
-  id: number;
-  documentId: string;
-  type: StrapiHomeVideoType;
-  title?: string | null;
-  slug?: string | null;
-  description?: string | null;
-  videoURL?: string | null;
-  thumbnail?: StrapiMedia | null;
-  videoFile?: StrapiMedia | null;
-}
-
-/** Home page single type (api/home) */
+/** Home page single type (api/home) — SEO + dynamic zone only */
 export interface StrapiHomePage {
   id: number;
   documentId: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
-  /** Home SEO (same shape as global defaultSeo); metadata merges this over defaultSeo */
   seo?: StrapiDefaultSeo | null;
-  /** Populated video entry (URL = external embed, FILE = uploaded media) */
-  video?: StrapiHomeVideo | null;
-  /** @deprecated use `video` relation */
-  videoURL?: string | null;
-  slides?: StrapiSlide[];
-  articles?: StrapiArticle[];
-  aboutSection?: StrapiHomeAboutSection | null;
-  projects?: StrapiProject[];
-  events?: StrapiEvent[];
-  /** Dynamic zones shared with the about page. */
   blocks?: StrapiAboutBlock[];
 }
 
@@ -429,7 +395,8 @@ export interface StrapiArticleSliderBlock {
   heading: string | null;
   subHeading: string | null;
   media: StrapiMedia | null;
-  link: { id: number; title: string; url: string; isExternal: boolean } | null;
+  /** Repeatable `components.link` CTAs */
+  link?: StrapiSlideLink[] | null;
 }
 
 export type StrapiArticleBlock =
@@ -634,27 +601,6 @@ export interface StrapiTabSectionBlock {
   tabs?: StrapiTabItem[];
 }
 
-export type StrapiAboutBlock =
-  | StrapiAboutOrganizationBlock
-  | StrapiAboutContentBlock
-  | StrapiAboutGalleryBlock
-  | StrapiAboutStatsBlock
-  | StrapiAboutTestimonialsBlock
-  | StrapiAboutCtaBlock
-  | StrapiAboutFeaturesBlock
-  | StrapiAboutAccordionsBlock
-  | StrapiAboutVideoSectionBlock
-  | StrapiAboutCardsBlock
-  | StrapiAboutMediaBlock
-  | StrapiAboutQuoteBlock
-  | StrapiAboutRichTextBlock
-  | StrapiSlidesBlock
-  | StrapiArticleSliderBlock
-  | StrapiTabSectionBlock;
-
-/** Shared dynamic-zone block union across About/Home/Articles/Pages/Projects */
-export type StrapiDynamicBlock = StrapiAboutBlock;
-
 /** Donate page single type */
 export interface StrapiDonatePage {
   id: number;
@@ -837,3 +783,74 @@ export interface StrapiEvent {
   updatedAt: string;
   publishedAt: string;
 }
+
+/** Home/about dynamic-zone: curated articles */
+export interface StrapiNewsSectionBlock {
+  __component: "section.news";
+  id: number;
+  title?: string | null;
+  subTitle?: string | null;
+  articles?: StrapiArticle[];
+}
+
+/** Home/about dynamic-zone: curated projects */
+export interface StrapiProjectsSectionBlock {
+  __component: "section.projects";
+  id: number;
+  title?: string | null;
+  subTitle?: string | null;
+  projects?: StrapiProject[];
+}
+
+/** Home/about dynamic-zone: curated partners */
+export interface StrapiPartnersSectionBlock {
+  __component: "section.partners";
+  id: number;
+  title?: string | null;
+  subTitle?: string | null;
+  partners?: StrapiPartner[];
+}
+
+/** Home/about dynamic-zone: curated events */
+export interface StrapiEventsSectionBlock {
+  __component: "section.events";
+  id: number;
+  title?: string | null;
+  subTitle?: string | null;
+  events?: StrapiEvent[];
+}
+
+/** Home/about dynamic-zone: curated team members */
+export interface StrapiTeamsSectionBlock {
+  __component: "section.teams";
+  id: number;
+  title?: string | null;
+  subTitle?: string | null;
+  teams?: StrapiTeam[];
+}
+
+export type StrapiAboutBlock =
+  | StrapiAboutOrganizationBlock
+  | StrapiAboutContentBlock
+  | StrapiAboutGalleryBlock
+  | StrapiAboutStatsBlock
+  | StrapiAboutTestimonialsBlock
+  | StrapiAboutCtaBlock
+  | StrapiAboutFeaturesBlock
+  | StrapiAboutAccordionsBlock
+  | StrapiAboutVideoSectionBlock
+  | StrapiAboutCardsBlock
+  | StrapiAboutMediaBlock
+  | StrapiAboutQuoteBlock
+  | StrapiAboutRichTextBlock
+  | StrapiSlidesBlock
+  | StrapiArticleSliderBlock
+  | StrapiTabSectionBlock
+  | StrapiNewsSectionBlock
+  | StrapiProjectsSectionBlock
+  | StrapiPartnersSectionBlock
+  | StrapiEventsSectionBlock
+  | StrapiTeamsSectionBlock;
+
+/** Shared dynamic-zone block union across About/Home/Articles/Pages/Projects */
+export type StrapiDynamicBlock = StrapiAboutBlock;

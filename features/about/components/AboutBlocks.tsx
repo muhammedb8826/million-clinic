@@ -1,6 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Slider } from "@/features/home";
+import {
+  Slider,
+  FeaturedArticles,
+  FeaturedProjects,
+  FeaturedEvents,
+  FeaturedPartners,
+  FeaturedTeams,
+} from "@/features/home";
 import { RichTextContent } from "@/features/pages";
 import { getStrapiMediaUrl, resolveStrapiMedia } from "@/lib/strapi";
 import type {
@@ -13,8 +20,13 @@ import type {
   StrapiAboutMediaBlock,
   StrapiAboutStatsBlock,
   StrapiAboutVideoSectionBlock,
+  StrapiEventsSectionBlock,
   StrapiLink,
   StrapiMedia,
+  StrapiNewsSectionBlock,
+  StrapiPartnersSectionBlock,
+  StrapiProjectsSectionBlock,
+  StrapiTeamsSectionBlock,
 } from "@/lib/strapi";
 import { AboutOrganization } from "./AboutOrganization";
 import { GallerySection } from "./GallerySection";
@@ -512,6 +524,61 @@ export function AboutBlocks({ blocks }: { blocks: StrapiAboutBlock[] | null | un
             return <SharedSliderBlock key={key} block={block} />;
           case "components.slides":
             return <Slider key={key} slides={block.slides ?? []} />;
+          case "section.news": {
+            const news = block as StrapiNewsSectionBlock;
+            return (
+              <FeaturedArticles
+                key={key}
+                articles={news.articles ?? []}
+                title={news.title}
+                subTitle={news.subTitle}
+              />
+            );
+          }
+          case "section.projects": {
+            const projects = block as StrapiProjectsSectionBlock;
+            return (
+              <FeaturedProjects
+                key={key}
+                projects={projects.projects ?? []}
+                title={projects.title}
+                subTitle={projects.subTitle}
+              />
+            );
+          }
+          case "section.partners": {
+            const partners = block as StrapiPartnersSectionBlock;
+            return (
+              <FeaturedPartners
+                key={key}
+                partners={partners.partners ?? []}
+                title={partners.title}
+                subTitle={partners.subTitle}
+              />
+            );
+          }
+          case "section.events": {
+            const events = block as StrapiEventsSectionBlock;
+            return (
+              <FeaturedEvents
+                key={key}
+                events={events.events ?? []}
+                title={events.title}
+                subTitle={events.subTitle}
+              />
+            );
+          }
+          case "section.teams": {
+            const teams = block as StrapiTeamsSectionBlock;
+            return (
+              <FeaturedTeams
+                key={key}
+                teams={teams.teams ?? []}
+                title={teams.title}
+                subTitle={teams.subTitle}
+              />
+            );
+          }
           default:
             return null;
         }

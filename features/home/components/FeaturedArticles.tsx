@@ -4,29 +4,34 @@ import type { StrapiArticle } from "@/lib/strapi";
 
 interface FeaturedArticlesProps {
   articles: StrapiArticle[];
+  title?: string | null;
+  subTitle?: string | null;
 }
 
-export function FeaturedArticles({ articles }: FeaturedArticlesProps) {
+export function FeaturedArticles({ articles, title, subTitle }: FeaturedArticlesProps) {
   if (articles.length === 0) return null;
 
   const displayArticles = articles.slice(0, 3);
+  const heading = title?.trim() || null;
+  const description = subTitle?.trim() || null;
 
   return (
     <section className="relative overflow-hidden py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-6xl px-4">
-        <div className="mb-10 flex flex-col gap-4 md:mb-12 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-2xl">
-            <span className="mb-2 inline-block text-sm font-semibold uppercase tracking-widest text-primary">
-              Stories & News
-            </span>
-            <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-[2.5rem]">
-              Latest Articles
-            </h2>
-            <p className="mt-3 max-w-xl text-muted-foreground">
-              Updates, stories and insights from our work around the world.
-            </p>
+        {(heading || description) && (
+          <div className="mb-10 max-w-2xl md:mb-12">
+            {heading && (
+              <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-[2.5rem]">
+                {heading}
+              </h2>
+            )}
+            {description && (
+              <p className={`max-w-xl text-muted-foreground ${heading ? "mt-3" : ""}`}>
+                {description}
+              </p>
+            )}
           </div>
-        </div>
+        )}
 
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3 xl:gap-8">
           {displayArticles.map((article) => (

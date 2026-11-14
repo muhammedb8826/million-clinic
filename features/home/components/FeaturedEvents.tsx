@@ -2,27 +2,36 @@ import Link from "next/link";
 import { EventCard } from "@/features/events";
 import type { StrapiEvent } from "@/lib/strapi";
 
-export function FeaturedEvents({ events }: { events: StrapiEvent[] }) {
+interface FeaturedEventsProps {
+  events: StrapiEvent[];
+  title?: string | null;
+  subTitle?: string | null;
+}
+
+export function FeaturedEvents({ events, title, subTitle }: FeaturedEventsProps) {
   if (!events?.length) return null;
 
   const display = events.slice(0, 3);
+  const heading = title?.trim() || null;
+  const description = subTitle?.trim() || null;
 
   return (
     <section className="relative overflow-hidden py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-6xl px-4">
-        <div className="mb-10 flex flex-col gap-4 md:mb-12 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-2xl">
-            <span className="mb-2 inline-block text-sm font-semibold uppercase tracking-widest text-primary">
-              Community
-            </span>
-            <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-[2.5rem]">
-              Upcoming Events
-            </h2>
-            <p className="mt-3 max-w-xl text-muted-foreground">
-              Join us at our upcoming events and community gatherings.
-            </p>
+        {(heading || description) && (
+          <div className="mb-10 max-w-2xl md:mb-12">
+            {heading && (
+              <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-[2.5rem]">
+                {heading}
+              </h2>
+            )}
+            {description && (
+              <p className={`max-w-xl text-muted-foreground ${heading ? "mt-3" : ""}`}>
+                {description}
+              </p>
+            )}
           </div>
-        </div>
+        )}
 
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3 xl:gap-8">
           {display.map((event) => (
@@ -45,4 +54,3 @@ export function FeaturedEvents({ events }: { events: StrapiEvent[] }) {
     </section>
   );
 }
-

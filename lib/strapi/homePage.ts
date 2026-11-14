@@ -1,6 +1,6 @@
 import { absolutizeUploadUrlsDeep } from "./absolutizeStrapiMedia";
 import { strapiFetch } from "./fetcher";
-import type { StrapiDefaultSeo, StrapiHomePage, StrapiHomeVideo } from "./types";
+import type { StrapiDefaultSeo, StrapiHomePage } from "./types";
 import { dynamicBlocksPopulate } from "./dynamicBlocksPopulate";
 
 const HOME_PAGE_PATH = "api/home";
@@ -35,7 +35,7 @@ function flattenStrapiData(raw: unknown): StrapiHomePage {
 }
 
 /**
- * Fetches the home page single type with SEO, articles, projects, and dynamic blocks populated.
+ * Fetches the home page single type with SEO and dynamic blocks fully populated.
  */
 export async function getHomePage(options?: {
   revalidate?: number | false;
@@ -44,9 +44,6 @@ export async function getHomePage(options?: {
     const searchParams: Record<string, unknown> = {
       populate: {
         seo: { populate: "*" },
-        articles: { populate: "*" },
-        projects: { populate: "*" },
-        events: { populate: "*" },
         blocks: {
           ...dynamicBlocksPopulate(),
         },
@@ -58,16 +55,6 @@ export async function getHomePage(options?: {
       next: options?.revalidate !== undefined ? { revalidate: options.revalidate } : undefined,
     });
     const home = flattenStrapiData(data);
-    // Strapi may return slides as `{ data: Slide[] }` instead of a plain array
-    const rawSlides = home.slides as unknown;
-    if (
-      rawSlides &&
-      typeof rawSlides === "object" &&
-      Array.isArray((rawSlides as { data?: unknown }).data)
-    ) {
-      home.slides = (rawSlides as { data: StrapiHomePage["slides"] }).data as StrapiHomePage["slides"];
-    }
-    home.video = normalizeStrapiRelation<StrapiHomeVideo>(home.video as unknown);
     home.seo = normalizeStrapiRelation<StrapiDefaultSeo>(home.seo as unknown);
     absolutizeUploadUrlsDeep(home);
     return home;

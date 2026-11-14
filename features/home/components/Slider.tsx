@@ -7,11 +7,23 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from "reac
 import { getStrapiMediaUrl, resolveStrapiMedia } from "@/lib/strapi";
 import type { StrapiSlide } from "@/lib/strapi";
 
-function linkHref(link: { url?: string | null; isExternal?: boolean } | null): string {
-  const url = link?.url;
-  if (url == null || url === "") return "/";
+function linkHref(link: { url?: string | null; isExternal?: boolean } | null | undefined): string | null {
+  const url = link?.url?.trim();
+  if (!url) return null;
   if (link?.isExternal) return url;
-  return typeof url === "string" && url.startsWith("/") ? url : `/${url}`;
+  return url.startsWith("/") ? url : `/${url}`;
+}
+
+function normalizeLinks(
+  link: StrapiSlide["link"]
+): { id: number; title: string; href: string; isExternal: boolean }[] {
+  const list = Array.isArray(link) ? link : link ? [link] : [];
+  return list.flatMap((item) => {
+    const title = item?.title?.trim();
+    const href = linkHref(item);
+    if (!title || !href) return [];
+    return [{ id: item.id, title, href, isExternal: Boolean(item.isExternal) }];
+  });
 }
 
 interface SliderProps {
@@ -99,7 +111,7 @@ export function Slider({ slides: rawSlides }: SliderProps) {
             const mime = (media as { mime?: string })?.mime;
             const isVideo = typeof mime === "string" && mime.startsWith("video/");
             const isFirst = slide.id === slides[0]?.id;
-            const link = slide.link;
+            const links = normalizeLinks(slide.link);
             const heading = slide.heading;
             const subHeading = slide.subHeading;
 
@@ -142,7 +154,7 @@ export function Slider({ slides: rawSlides }: SliderProps) {
 
                   <div className="absolute inset-0 bg-black/40" aria-hidden />
 
-                  {(heading || subHeading || link) && (
+                  {(heading || subHeading || links.length > 0) && (
                     <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-12 py-6 text-center text-white sm:px-16 sm:py-8">
                       <div className="pointer-events-auto mx-auto flex w-full max-w-6xl flex-col items-center gap-4 sm:gap-5">
                         {heading && (
@@ -155,25 +167,32 @@ export function Slider({ slides: rawSlides }: SliderProps) {
                             {subHeading}
                           </p>
                         )}
-                        {link && (
-                          <div className="mt-1 sm:mt-2">
-                            {link.isExternal ? (
-                              <a
-                                href={linkHref(link)}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
-                              >
-                                {link.title}
-                              </a>
-                            ) : (
-                              <Link
-                                href={linkHref(link)}
-                                className="inline-flex rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
-                              >
-                                {link.title}
-                              </Link>
-                            )}
+                        {links.length > 0 && (
+                          <div className="mt-1 flex flex-wrap items-center justify-center gap-3 sm:mt-2">
+                            {links.map((link, linkIndex) => {
+                              const className =
+                                linkIndex === 0
+                                  ? "inline-flex rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
+                                  : "inline-flex rounded-md border-2 border-white/80 bg-transparent px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/15";
+                              if (link.isExternal) {
+                                return (
+                                  <a
+                                    key={link.id}
+                                    href={link.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={className}
+                                  >
+                                    {link.title}
+                                  </a>
+                                );
+                              }
+                              return (
+                                <Link key={link.id} href={link.href} className={className}>
+                                  {link.title}
+                                </Link>
+                              );
+                            })}
                           </div>
                         )}
                       </div>
