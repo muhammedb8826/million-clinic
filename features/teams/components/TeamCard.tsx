@@ -1,13 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getStrapiMediaUrl, resolveStrapiMedia } from "@/lib/strapi";
-import type { StrapiBoardMember } from "@/lib/strapi";
+import type { StrapiTeam } from "@/lib/strapi";
 
-interface BoardMemberCardProps {
-  member: StrapiBoardMember;
+interface TeamCardProps {
+  member: StrapiTeam;
 }
 
-function getPhotoUrl(member: StrapiBoardMember): { url: string; alt: string } | null {
+function getPhotoUrl(member: StrapiTeam): { url: string; alt: string } | null {
   const photo = resolveStrapiMedia(member.photo) ?? member.photo;
   if (photo?.url) {
     const url = getStrapiMediaUrl(photo.url);
@@ -16,9 +16,8 @@ function getPhotoUrl(member: StrapiBoardMember): { url: string; alt: string } | 
   return null;
 }
 
-export function BoardMemberCard({ member }: BoardMemberCardProps) {
+export function TeamCard({ member }: TeamCardProps) {
   const photo = getPhotoUrl(member);
-  const displayTitle = [member.title, member.fullName].filter(Boolean).join(" ");
   const role = member.role?.trim();
   const messageExcerpt = member.message?.trim()
     ? member.message.length > 120
@@ -28,7 +27,7 @@ export function BoardMemberCard({ member }: BoardMemberCardProps) {
 
   return (
     <Link
-      href={`/board-members/${member.slug}`}
+      href={`/teams/${member.slug}`}
       className="group block overflow-hidden rounded-lg border border-border bg-card transition hover:border-primary hover:shadow-md"
     >
       <div className="relative aspect-3/4 w-full overflow-hidden bg-muted">
@@ -48,7 +47,7 @@ export function BoardMemberCard({ member }: BoardMemberCardProps) {
       </div>
       <div className="p-4">
         <h2 className="font-semibold text-foreground transition group-hover:text-primary">
-          {displayTitle || member.fullName}
+          {member.fullName}
         </h2>
         {role && (
           <p className="mt-0.5 text-sm text-primary font-medium">{role}</p>

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { getBoardMemberBySlug, getAdjacentItems } from "@/lib/strapi";
+import { getTeamBySlug, getAdjacentItems } from "@/lib/strapi";
 import { getStrapiMediaUrl, resolveStrapiMedia } from "@/lib/strapi";
 import { PageBanner, RichTextContent } from "@/features/pages";
 import { bannerFieldToOgUrl, fetchSeoFallback, mergePageMetadata, strapiSeoToOverrides } from "@/lib/seo/metadata";
@@ -24,10 +24,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const [fb, member] = await Promise.all([
     fetchSeoFallback({ revalidate: 60 }),
-    getBoardMemberBySlug(slug, { revalidate: 60 }),
+    getTeamBySlug(slug, { revalidate: 60 }),
   ]);
   if (!member) {
-    return mergePageMetadata(fb, { title: "Board Member Not Found" });
+    return mergePageMetadata(fb, { title: "Team Member Not Found" });
   }
   return mergePageMetadata(fb, {
     ...strapiSeoToOverrides(undefined, {
@@ -38,18 +38,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   });
 }
 
-export default async function BoardMemberPage({ params }: PageProps) {
+export default async function TeamMemberPage({ params }: PageProps) {
   const { slug } = await params;
-  const member = await getBoardMemberBySlug(slug, { revalidate: 60 });
+  const member = await getTeamBySlug(slug, { revalidate: 60 });
 
   if (!member) notFound();
 
   const photo = resolveStrapiMedia(member.photo) ?? member.photo;
   const photoUrl = photo?.url ? getStrapiMediaUrl(photo.url) : "";
-  const displayTitle = [member.title, member.fullName].filter(Boolean).join(" ");
 
   const { older, newer } = await getAdjacentItems({
-    path: "api/board-members",
+    path: "api/teams",
     createdAt: member.createdAt,
     excludeSlug: member.slug,
     titleField: "fullName",
@@ -60,10 +59,10 @@ export default async function BoardMemberPage({ params }: PageProps) {
     <main className="min-h-screen">
       <PageBanner
         banner={null}
-        title={displayTitle || member.fullName}
+        title={member.fullName}
         breadcrumb={[
           { label: "Home", href: "/" },
-          { label: "Board Members", href: "/board-members" },
+          { label: "Team", href: "/teams" },
           { label: member.fullName },
         ]}
         noBannerVariant="secondary"
@@ -146,10 +145,10 @@ export default async function BoardMemberPage({ params }: PageProps) {
         </div>
         <AdjacentNav
           previous={
-            older ? { href: `/board-members/${older.slug}`, label: older.title } : null
+            older ? { href: `/teams/${older.slug}`, label: older.title } : null
           }
           next={
-            newer ? { href: `/board-members/${newer.slug}`, label: newer.title } : null
+            newer ? { href: `/teams/${newer.slug}`, label: newer.title } : null
           }
           previousCaption="Previous member"
           nextCaption="Next member"

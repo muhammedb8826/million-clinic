@@ -38,13 +38,21 @@ function linkHref(link: StrapiLink | null | undefined): string | null {
   return `/${url}`;
 }
 
-function LinkButton({ link }: { link: StrapiLink | null | undefined }) {
+function LinkButton({
+  link,
+  variant = "primary",
+}: {
+  link: StrapiLink | null | undefined;
+  variant?: "primary" | "onPrimary";
+}) {
   const href = linkHref(link);
   const title = link?.title?.trim();
   if (!href || !title) return null;
 
   const className =
-    "inline-flex rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90";
+    variant === "onPrimary"
+      ? "inline-flex rounded-full bg-primary-foreground px-5 py-2.5 text-sm font-semibold text-primary transition hover:opacity-90"
+      : "inline-flex rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90";
 
   if (link?.isExternal) {
     return (
@@ -166,7 +174,9 @@ function StatsBlock({ block }: { block: StrapiAboutStatsBlock }) {
 
 function CtaBlock({ block }: { block: StrapiAboutCtaBlock }) {
   const bgUrl = mediaUrl(block.backgroundImage);
-  if (!block.title && !block.description && !linkHref(block.link)) return null;
+  const links = Array.isArray(block.link) ? block.link : block.link ? [block.link] : [];
+  const visibleLinks = links.filter((link) => linkHref(link) && link.title?.trim());
+  if (!block.title && !block.description && visibleLinks.length === 0) return null;
 
   return (
     <section className="relative overflow-hidden bg-primary px-4 py-16 text-center text-primary-foreground">
@@ -182,9 +192,13 @@ function CtaBlock({ block }: { block: StrapiAboutCtaBlock }) {
       <div className="relative mx-auto max-w-3xl">
         {block.title && <h2 className="text-3xl font-bold sm:text-4xl">{block.title}</h2>}
         {block.description && <p className="mt-4 text-primary-foreground/85">{block.description}</p>}
-        <div className="mt-8 flex justify-center">
-          <LinkButton link={block.link} />
+        {visibleLinks.length > 0 && (
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            {visibleLinks.map((link) => (
+              <LinkButton key={link.id} link={link} variant="onPrimary" />
+            ))}
           </div>
+        )}
       </div>
     </section>
   );

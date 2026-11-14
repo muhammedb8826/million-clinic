@@ -516,7 +516,8 @@ export interface StrapiAboutCtaBlock {
   id: number;
   title?: string | null;
   description?: string | null;
-  link?: StrapiLink | null;
+  /** Repeatable `components.link` entries */
+  link?: StrapiLink[] | null;
   backgroundImage?: StrapiMedia | null;
 }
 
@@ -829,12 +830,11 @@ export interface StrapiEvent {
   publishedAt: string;
 }
 
-/** Board member (team/leadership) */
-export interface StrapiBoardMember {
+/** Team member (collection type `team` / `teams`) */
+export interface StrapiTeam {
   id: number;
   documentId: string;
   fullName: string;
-  title: string | null;
   role: string | null;
   slug: string;
   email: string | null;

@@ -27,6 +27,12 @@ function strapiUploadRemotePatterns() {
 
 const nextConfig = {
   output: "standalone",
+  async redirects() {
+    return [
+      { source: "/board-members", destination: "/teams", permanent: true },
+      { source: "/board-members/:slug", destination: "/teams/:slug", permanent: true },
+    ];
+  },
   images: {
     remotePatterns: strapiUploadRemotePatterns(),
     // Next.js blocks optimizing images that resolve to localhost/private IPs by default.

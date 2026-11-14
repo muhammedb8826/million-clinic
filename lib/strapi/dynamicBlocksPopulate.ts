@@ -29,7 +29,12 @@ export function dynamicBlocksPopulate() {
           testimonials: { populate: "*" },
         },
       },
-      "section.cta": { populate: "*" },
+      "section.cta": {
+        populate: {
+          link: { populate: "*" },
+          backgroundImage: { populate: "*" },
+        },
+      },
       "section.features": {
         populate: {
           features: { populate: "*" },

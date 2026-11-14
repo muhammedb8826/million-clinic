@@ -14,7 +14,7 @@ export { getArticles, getArticleBySlug } from "./articles";
 export { getAdjacentItems } from "./adjacent";
 export type { AdjacentItem } from "./adjacent";
 export { getArticleCategories } from "./articleCategories";
-export { getBoardMembers, getBoardMemberBySlug } from "./boardMembers";
+export { getTeams, getTeamBySlug } from "./teams";
 export type {
   StrapiDefaultSeo,
   StrapiGlobal,
@@ -101,5 +101,5 @@ export type {
   StrapiEventSpeaker,
   StrapiEventLocation,
   StrapiEventStatus,
-  StrapiBoardMember,
+  StrapiTeam,
 } from "./types";
