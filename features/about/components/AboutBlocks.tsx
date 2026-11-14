@@ -1,13 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Slider } from "@/features/home";
 import {
-  Slider,
   FeaturedArticles,
   FeaturedProjects,
   FeaturedEvents,
   FeaturedPartners,
   FeaturedTeams,
-} from "@/features/home";
+} from "@/features/sections";
 import { RichTextContent } from "@/features/pages";
 import { getStrapiMediaUrl, resolveStrapiMedia } from "@/lib/strapi";
 import type {

@@ -1,9 +1,8 @@
+export { Slider, ContactSection } from "./components";
 export {
-  Slider,
   FeaturedArticles,
   FeaturedProjects,
   FeaturedEvents,
   FeaturedPartners,
   FeaturedTeams,
-  ContactSection,
-} from "./components";
+} from "@/features/sections";

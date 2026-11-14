@@ -784,7 +784,7 @@ export interface StrapiEvent {
   publishedAt: string;
 }
 
-/** Home/about dynamic-zone: curated articles */
+/** Shared dynamic-zone: curated articles (home, about, services, etc.) */
 export interface StrapiNewsSectionBlock {
   __component: "section.news";
   id: number;
@@ -793,7 +793,7 @@ export interface StrapiNewsSectionBlock {
   articles?: StrapiArticle[];
 }
 
-/** Home/about dynamic-zone: curated projects */
+/** Shared dynamic-zone: curated projects */
 export interface StrapiProjectsSectionBlock {
   __component: "section.projects";
   id: number;
@@ -802,7 +802,7 @@ export interface StrapiProjectsSectionBlock {
   projects?: StrapiProject[];
 }
 
-/** Home/about dynamic-zone: curated partners */
+/** Shared dynamic-zone: curated partners */
 export interface StrapiPartnersSectionBlock {
   __component: "section.partners";
   id: number;
@@ -811,7 +811,7 @@ export interface StrapiPartnersSectionBlock {
   partners?: StrapiPartner[];
 }
 
-/** Home/about dynamic-zone: curated events */
+/** Shared dynamic-zone: curated events */
 export interface StrapiEventsSectionBlock {
   __component: "section.events";
   id: number;
@@ -820,7 +820,7 @@ export interface StrapiEventsSectionBlock {
   events?: StrapiEvent[];
 }
 
-/** Home/about dynamic-zone: curated team members */
+/** Shared dynamic-zone: curated team members */
 export interface StrapiTeamsSectionBlock {
   __component: "section.teams";
   id: number;
