@@ -793,19 +793,26 @@ export interface StrapiEventSpeaker {
   socialLinks?: StrapiSocialIcon[];
 }
 
-export interface StrapiEventOrganizer {
+/** Team member (collection type `team` / `teams`) */
+export interface StrapiTeam {
   id: number;
-  documentId?: string;
+  documentId: string;
   fullName: string;
-  role?: string | null;
-  email?: string | null;
-  phone?: string | null;
-  bio?: StrapiRichTextNode[] | null;
-  message?: string | null;
-  slug?: string | null;
-  photo?: StrapiMedia | null;
-  socialLinks?: StrapiSocialIcon[];
+  role: string | null;
+  slug: string;
+  email: string | null;
+  phone: string | null;
+  bio: StrapiRichTextNode[] | null;
+  message: string | null;
+  photo: StrapiMedia | null;
+  socialLinks: StrapiSocialIcon[];
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
 }
+
+/** @deprecated Event organizer is a Team relation — use StrapiTeam */
+export type StrapiEventOrganizer = StrapiTeam;
 
 export interface StrapiEvent {
   id: number;
@@ -821,28 +828,11 @@ export interface StrapiEvent {
   eventStatus?: StrapiEventStatus | string | null;
   cover?: StrapiMedia | null;
   seo?: StrapiDefaultSeo | null;
-  organizer?: StrapiEventOrganizer | null;
+  /** Relation to `api::team.team` (replaces former board-member relation) */
+  organizer?: StrapiTeam | null;
   location?: StrapiEventLocation | null;
   speakers?: StrapiEventSpeaker[];
   category?: StrapiArticleCategory | null;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-}
-
-/** Team member (collection type `team` / `teams`) */
-export interface StrapiTeam {
-  id: number;
-  documentId: string;
-  fullName: string;
-  role: string | null;
-  slug: string;
-  email: string | null;
-  phone: string | null;
-  bio: StrapiRichTextNode[] | null;
-  message: string | null;
-  photo: StrapiMedia | null;
-  socialLinks: StrapiSocialIcon[];
   createdAt: string;
   updatedAt: string;
   publishedAt: string;

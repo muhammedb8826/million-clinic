@@ -20,9 +20,19 @@ function eventsPopulate() {
   return {
     cover: { populate: "*" },
     seo: { populate: "*" },
-    organizer: { populate: "*" },
+    organizer: {
+      populate: {
+        photo: { populate: "*" },
+        socialLinks: { populate: "*" },
+      },
+    },
     location: { populate: "*" },
-    speakers: { populate: "*" },
+    speakers: {
+      populate: {
+        photo: { populate: "*" },
+        socialLinks: { populate: "*" },
+      },
+    },
     category: { populate: "*" },
   } as const;
 }

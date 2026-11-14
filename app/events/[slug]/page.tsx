@@ -190,7 +190,16 @@ export default async function EventDetailsPage({ params }: PageProps) {
                     {event.organizer && (
                       <div>
                         <p className="font-semibold text-foreground">Organizer</p>
-                        <p className="text-muted-foreground">{event.organizer.fullName}</p>
+                        {event.organizer.slug ? (
+                          <Link
+                            href={`/teams/${event.organizer.slug}`}
+                            className="text-muted-foreground transition hover:text-primary"
+                          >
+                            {event.organizer.fullName}
+                          </Link>
+                        ) : (
+                          <p className="text-muted-foreground">{event.organizer.fullName}</p>
+                        )}
                         {event.organizer.role && <p className="text-muted-foreground">{event.organizer.role}</p>}
                         {event.organizer.email && (
                           <a className="mt-2 block text-primary hover:underline" href={`mailto:${event.organizer.email}`}>
