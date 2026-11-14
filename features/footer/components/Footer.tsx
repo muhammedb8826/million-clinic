@@ -314,13 +314,27 @@ export function Footer({ data }: FooterProps) {
             )}
           </div>
         )}
-        {copyRight && (
-          <div className="mt-8 border-t border-secondary-foreground/20 pt-8">
-            <p className="text-center text-xs text-secondary-foreground/75">
-              {copyRight}
+        <div className="mt-8 border-t border-secondary-foreground/20 pt-8">
+          <div className="flex flex-col items-center justify-center gap-2 text-center text-xs text-secondary-foreground/75 sm:flex-row sm:gap-3">
+            {copyRight && <p>{copyRight}</p>}
+            {copyRight && (
+              <span className="hidden text-secondary-foreground/40 sm:inline" aria-hidden>
+                ·
+              </span>
+            )}
+            <p>
+              Developed by{" "}
+              <a
+                href="https://qenenia.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-secondary-foreground/90 transition hover:text-primary"
+              >
+                Qenenia
+              </a>
             </p>
           </div>
-        )}
+        </div>
       </div>
     </footer>
   );
