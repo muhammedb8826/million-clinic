@@ -5,7 +5,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { getStrapiMediaUrl, resolveStrapiMedia } from "@/lib/strapi";
-import type { StrapiHeader, StrapiMenuItem, StrapiSubMenuItem, StrapiTopHeader } from "@/lib/strapi";
+import type {
+  StrapiHeader,
+  StrapiLocale,
+  StrapiMenuItem,
+  StrapiSubMenuItem,
+  StrapiTopHeader,
+} from "@/lib/strapi";
 import { ThemeSwitcher } from "../top-header/ThemeSwitcher";
 import { LanguageSwitcher } from "../top-header/LanguageSwitcher";
 import { TopHeaderCtaLink } from "../top-header/TopHeaderCtaLink";
@@ -88,9 +94,10 @@ interface MainNavProps {
   header: StrapiHeader;
   topHeader: StrapiTopHeader | null;
   siteName: string;
+  languages?: StrapiLocale[];
 }
 
-export function MainNav({ header, topHeader, siteName }: MainNavProps) {
+export function MainNav({ header, topHeader, siteName, languages }: MainNavProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdownId, setOpenDropdownId] = useState<number | null>(null);
   const [localLogoOk, setLocalLogoOk] = useState(true);
@@ -333,7 +340,7 @@ export function MainNav({ header, topHeader, siteName }: MainNavProps) {
             )}
             <div className="flex items-center gap-3">
               <ThemeSwitcher />
-              <LanguageSwitcher locales={topHeader?.languages} />
+              <LanguageSwitcher locales={languages ?? topHeader?.languages} />
             </div>
           </div>
         </nav>

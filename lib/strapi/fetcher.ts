@@ -1,4 +1,5 @@
 import qs from "qs";
+import { getRequestLocale } from "@/lib/i18n";
 import type { StrapiResponse } from "./types";
 
 const getStrapiConfig = () => {
@@ -21,19 +22,31 @@ export type StrapiFetcherOptions = {
   path: string;
   /** Query params; use for populate, filters, etc. */
   searchParams?: Record<string, unknown>;
+  /**
+   * Strapi i18n locale. Defaults to the request locale cookie.
+   * Pass `false` to omit `locale` (e.g. non-localized endpoints).
+   */
+  locale?: string | false;
   /** Override default cache (Next.js fetch cache) */
   next?: { revalidate?: number | false; tags?: string[] };
 };
 
 /**
  * Reusable Strapi API fetcher. Uses NEXT_PUBLIC_API_URL and NEXT_PUBLIC_API_TOKEN.
+ * Automatically sends `locale` from the NEXT_LOCALE cookie unless overridden.
  * Returns typed StrapiResponse<T>. Use in Server Components or server code.
  */
 export async function strapiFetch<T>(
   options: StrapiFetcherOptions
 ): Promise<StrapiResponse<T>> {
   const { baseUrl, token } = getStrapiConfig();
-  const { path, searchParams = {}, next } = options;
+  const { path, next } = options;
+  const searchParams: Record<string, unknown> = { ...(options.searchParams ?? {}) };
+
+  if (options.locale !== false && searchParams.locale == null) {
+    searchParams.locale =
+      typeof options.locale === "string" ? options.locale : await getRequestLocale();
+  }
 
   const url = new URL(path, baseUrl);
   const queryString = qs.stringify(searchParams, {

@@ -1,4 +1,4 @@
-import type { StrapiHeader, StrapiTopHeader } from "@/lib/strapi";
+import type { StrapiHeader, StrapiLocale, StrapiTopHeader } from "@/lib/strapi";
 import { MainNav } from "./MainNav";
 import Link from "next/link";
 
@@ -6,9 +6,10 @@ interface MainHeaderProps {
   data: StrapiHeader | null;
   topHeader: StrapiTopHeader | null;
   siteName: string;
+  languages?: StrapiLocale[];
 }
 
-export function MainHeader({ data, topHeader, siteName }: MainHeaderProps) {
+export function MainHeader({ data, topHeader, siteName, languages }: MainHeaderProps) {
   if (!data) {
     return (
       <header className="sticky top-0 z-30 border-b border-border bg-background/95 backdrop-blur">
@@ -24,7 +25,12 @@ export function MainHeader({ data, topHeader, siteName }: MainHeaderProps) {
   return (
     <header className="sticky top-0 z-30 border-b border-border bg-background/95 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <MainNav header={data} topHeader={topHeader} siteName={siteName} />
+        <MainNav
+          header={data}
+          topHeader={topHeader}
+          siteName={siteName}
+          languages={languages}
+        />
       </div>
     </header>
   );

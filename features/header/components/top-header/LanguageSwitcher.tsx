@@ -1,22 +1,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { FALLBACK_LOCALES, LOCALE_COOKIE, localeDirection } from "@/lib/i18n/locale-client";
 
 export interface LocaleOption {
   code: string;
   name: string;
   dir?: "ltr" | "rtl";
 }
-
-const DEFAULT_LOCALES: LocaleOption[] = [
-  { code: "en", name: "English", dir: "ltr" },
-  { code: "ar", name: "العربية", dir: "rtl" },
-  { code: "om", name: "Oromoo", dir: "ltr" },
-  { code: "am", name: "አማርኛ", dir: "ltr" },
-];
-
-const LOCALE_COOKIE = "NEXT_LOCALE";
 
 function setLocaleCookie(code: string) {
   if (typeof document === "undefined") return;
@@ -30,25 +22,36 @@ function getLocaleFromCookie(): string | null {
 }
 
 interface LanguageSwitcherProps {
-  /** Override from Strapi (e.g. topHeader.languages); must have code + name */
-  locales?: { code: string; name: string }[];
+  /** Locales from Strapi i18n (`GET /api/i18n/locales`) */
+  locales?: { code: string; name: string; isDefault?: boolean }[];
 }
 
 export function LanguageSwitcher({ locales }: LanguageSwitcherProps) {
   const router = useRouter();
-  const options: LocaleOption[] = (locales?.length ? locales.map((l) => ({ ...l, dir: l.code === "ar" ? "rtl" : "ltr" })) : DEFAULT_LOCALES);
 
-  const [current, setCurrent] = useState<string>(options[0]?.code ?? "en");
+  const options: LocaleOption[] = useMemo(() => {
+    const source = locales?.length ? locales : FALLBACK_LOCALES;
+    return source.map((l) => ({
+      code: l.code,
+      name: l.name,
+      dir: localeDirection(l.code),
+    }));
+  }, [locales]);
+
+  const defaultCode =
+    locales?.find((l) => l.isDefault)?.code ?? options[0]?.code ?? "en";
+
+  const [current, setCurrent] = useState<string>(defaultCode);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const fromCookie = getLocaleFromCookie();
     if (fromCookie && options.some((o) => o.code === fromCookie)) {
-      setTimeout(() => {
-        setCurrent(fromCookie);
-      }, 100);
+      setCurrent(fromCookie);
+      return;
     }
-  }, [options]);
+    setCurrent(defaultCode);
+  }, [options, defaultCode]);
 
   const selectLocale = useCallback(
     (code: string) => {
@@ -57,10 +60,12 @@ export function LanguageSwitcher({ locales }: LanguageSwitcherProps) {
       setOpen(false);
       router.refresh();
     },
-    [router]
+    [router],
   );
 
   const currentOption = options.find((o) => o.code === current) ?? options[0];
+
+  if (options.length <= 1) return null;
 
   return (
     <div className="relative">

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
 import { Geist, Geist_Mono, Figtree } from "next/font/google";
 import { TopHeader, MainHeader, getHeaderData } from "@/features/header";
+import { getRequestLocale, localeDirection } from "@/lib/i18n";
 import { mergePageMetadata } from "@/lib/seo/metadata";
 import { Footer } from "@/features/footer";
 import { ThemeProvider } from "./providers";
@@ -9,9 +9,6 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 
 const figtree = Figtree({subsets:['latin'],variable:'--font-sans'});
-
-const LOCALE_COOKIE = "NEXT_LOCALE";
-const RTL_CODES = new Set(["ar"]);
 
 const GOOGLE_SITE_VERIFICATION = "IkfA0-l6fy-mGEk2lwJXc4Yn6vT4Ubt1zqeixbMkyhg";
 
@@ -72,10 +69,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const headerData = await getHeaderData();
-  const cookieStore = await cookies();
-  const locale = cookieStore.get(LOCALE_COOKIE)?.value ?? "en";
-  const dir = RTL_CODES.has(locale) ? "rtl" : "ltr";
+  const [headerData, locale] = await Promise.all([
+    getHeaderData(),
+    getRequestLocale(),
+  ]);
+  const dir = localeDirection(locale);
+  const languages = headerData?.languages;
 
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning className={cn("font-sans", figtree.variable)}>
@@ -83,11 +82,12 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider>
-          <TopHeader data={headerData?.topHeader ?? null} />
+          <TopHeader data={headerData?.topHeader ?? null} languages={languages} />
           <MainHeader
             data={headerData?.header ?? null}
             topHeader={headerData?.topHeader ?? null}
             siteName={headerData?.siteName ?? "Charity"}
+            languages={languages}
           />
           {children}
           <Footer data={headerData?.footer ?? null} />

@@ -1,4 +1,4 @@
-import type { StrapiTopHeader } from "@/lib/strapi";
+import type { StrapiLocale, StrapiTopHeader } from "@/lib/strapi";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import { TopHeaderCtaLink } from "./TopHeaderCtaLink";
@@ -11,11 +11,14 @@ function ensureUrl(url: string | null | undefined): string {
 
 interface TopHeaderProps {
   data: StrapiTopHeader | null;
+  /** Strapi i18n locales; preferred over `data.languages` */
+  languages?: StrapiLocale[];
 }
 
-export function TopHeader({ data }: TopHeaderProps) {
+export function TopHeader({ data, languages }: TopHeaderProps) {
   const socialIcons = data?.socialIcon ?? [];
   const ctas = data?.cta ?? [];
+  const locales = languages ?? data?.languages;
 
   return (
     <header className="relative z-50 hidden border-b border-border bg-muted md:block">
@@ -56,7 +59,7 @@ export function TopHeader({ data }: TopHeaderProps) {
           )}
           <div className="flex items-center gap-3">
             <ThemeSwitcher />
-            <LanguageSwitcher locales={data?.languages} />
+            <LanguageSwitcher locales={locales} />
           </div>
         </div>
       </div>
