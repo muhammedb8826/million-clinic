@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { getTeamBySlug, getAdjacentItems } from "@/lib/strapi";
+import { getTeamBySlug, getAdjacentItems } from "@/lib/strapi/server";
 import { getStrapiMediaUrl, resolveStrapiMedia } from "@/lib/strapi";
 import { PageBanner, RichTextContent } from "@/features/pages";
 import { bannerFieldToOgUrl, fetchSeoFallback, mergePageMetadata, strapiSeoToOverrides } from "@/lib/seo/metadata";

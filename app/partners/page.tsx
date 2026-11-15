@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getPartners } from "@/lib/strapi";
+import { getPartners } from "@/lib/strapi/server";
 import { PartnerCard } from "@/features/partners";
 import { PageBanner, PageIntro } from "@/features/pages";
 import { fetchSeoFallback, mergePageMetadata } from "@/lib/seo/metadata";

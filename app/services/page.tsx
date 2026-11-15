@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getServicePage } from "@/lib/strapi";
+import { getServicePage } from "@/lib/strapi/server";
 import { AboutBlocks } from "@/features/about";
 import { PageBanner } from "@/features/pages";
 import { fetchSeoFallback, mergePageMetadata, strapiSeoToOverrides } from "@/lib/seo/metadata";

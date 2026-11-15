@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getGlobal } from "@/lib/strapi";
+import { getGlobal } from "@/lib/strapi/server";
 import { getStrapiMediaUrl, resolveStrapiMedia } from "@/lib/strapi/media";
 import type { StrapiDefaultSeo } from "@/lib/strapi/types";
 import { LOCAL_FALLBACK_SEO } from "./localFallback";

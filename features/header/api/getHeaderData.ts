@@ -1,6 +1,6 @@
 import { cache } from "react";
 import { getStrapiLocales } from "@/lib/i18n";
-import { getGlobal } from "@/lib/strapi";
+import { getGlobal } from "@/lib/strapi/server";
 import type { StrapiLocale } from "@/lib/strapi";
 
 export interface HeaderData {

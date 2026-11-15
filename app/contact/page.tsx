@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getContactPage } from "@/lib/strapi";
+import { getContactPage } from "@/lib/strapi/server";
 import { PageBanner } from "@/features/pages";
 import { fetchSeoFallback, mergePageMetadata, strapiSeoToOverrides } from "@/lib/seo/metadata";
 import { ContactPageBody } from "@/features/contact";

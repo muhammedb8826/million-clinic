@@ -1,20 +1,8 @@
-export { strapiFetch, buildPopulateParams } from "./fetcher";
+/**
+ * Client-safe Strapi exports (media helpers + types only).
+ * For API fetchers, import from `@/lib/strapi/server`.
+ */
 export { getStrapiMediaUrl, resolveStrapiMedia } from "./media";
-export type { StrapiFetcherOptions } from "./fetcher";
-export { getGlobal } from "./global";
-export { getHomePage } from "./homePage";
-export { getAboutPage } from "./aboutPage";
-export { getContactPage } from "./contactPage";
-export { getDonatePage } from "./donatePage";
-export { getServicePage } from "./servicePage";
-export { getPages, getPageBySlug } from "./pages";
-export { getProjects, getProjectBySlug } from "./projects";
-export { getPartners, getPartnerBySlug } from "./partners";
-export { getArticles, getArticleBySlug } from "./articles";
-export { getAdjacentItems } from "./adjacent";
-export type { AdjacentItem } from "./adjacent";
-export { getArticleCategories } from "./articleCategories";
-export { getTeams, getTeamBySlug } from "./teams";
 export type {
   StrapiDefaultSeo,
   StrapiGlobal,

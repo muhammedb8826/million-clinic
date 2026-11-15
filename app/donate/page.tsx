@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getDonatePage } from "@/lib/strapi";
+import { getDonatePage } from "@/lib/strapi/server";
 import { AboutBlocks } from "@/features/about";
 import { PageBanner } from "@/features/pages";
 import { fetchSeoFallback, mergePageMetadata, strapiSeoToOverrides } from "@/lib/seo/metadata";

@@ -1,3 +1,4 @@
+import "server-only";
 import qs from "qs";
 import { getRequestLocale } from "@/lib/i18n";
 import type { StrapiResponse } from "./types";

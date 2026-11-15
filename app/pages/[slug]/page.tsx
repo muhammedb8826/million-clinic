@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getPageBySlug } from "@/lib/strapi";
+import { getPageBySlug } from "@/lib/strapi/server";
 import { fetchSeoFallback, mergePageMetadata, strapiSeoToOverrides } from "@/lib/seo/metadata";
 import { Slider } from "@/features/home";
 import { DynamicBlocks } from "@/features/blocks";

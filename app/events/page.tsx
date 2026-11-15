@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getEvents } from "@/lib/strapi/eventsApi";
+import { getEvents } from "@/lib/strapi/server";
 import { PageBanner, PageIntro } from "@/features/pages";
 import { EventCard } from "@/features/events";
 import { fetchSeoFallback, mergePageMetadata } from "@/lib/seo/metadata";

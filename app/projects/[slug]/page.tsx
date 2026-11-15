@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getProjectBySlug, getAdjacentItems } from "@/lib/strapi";
+import { getProjectBySlug, getAdjacentItems } from "@/lib/strapi/server";
 import { Slider } from "@/features/home";
 import { PageBanner } from "@/features/pages";
 import { DynamicBlocks } from "@/features/blocks";
